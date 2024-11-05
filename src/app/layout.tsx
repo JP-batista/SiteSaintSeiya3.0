@@ -1,35 +1,26 @@
-// src/app/layout.tsx
-
-import './globals.css'
+import './globals.css';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 export const metadata = {
   title: 'Cavaleiros do Zodíaco',
-  description: 'Explorando o universo dos Cavaleiros de Athena',
-}
+  description: 'Site dedicado aos Cavaleiros do Zodíaco',
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
-      <body className="bg-gray-900 text-white">
-        <header className="bg-black py-4 shadow-md">
-          <div className="container mx-auto flex justify-between items-center">
-            <h1 className="text-3xl font-bold">Cavaleiros do Zodíaco</h1>
-            <nav>
-              <a href="/" className="px-4">Início</a>
-              <a href="/encyclopedia" className="px-4">Enciclopédia</a>
-              <a href="/timeline" className="px-4">Linha do Tempo</a>
-            </nav>
-          </div>
-        </header>
-        <main>{children}</main>
-        <footer className="bg-black text-center py-4">
-          <p>© 2024 Cavaleiros do Zodíaco - Todos os direitos reservados</p>
-        </footer>
+    <html lang="pt-br">
+      <body>
+        <Navbar />
+        <main className="main-content container mx-auto p-4">
+          {children}
+        </main>
+        <Footer />
       </body>
     </html>
-  )
+  );
 }

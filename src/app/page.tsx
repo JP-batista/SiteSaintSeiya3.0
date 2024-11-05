@@ -1,13 +1,13 @@
-// src/app/page.tsx
-
-export default function HomePage() {
+const HomePage: React.FC = () => {
   return (
-    <section className="container mx-auto p-8 text-center">
-      <h2 className="text-4xl font-bold mb-4">Bem-vindo ao Universo dos Cavaleiros do Zodíaco</h2>
-      <p className="text-lg mb-8">
-        Explore a história dos cavaleiros, sua jornada e as lendas que moldaram o destino da Terra.
+    <section className="home-section">
+      <h2 className="home-title">Bem-vindo ao Universo dos Cavaleiros do Zodíaco</h2>
+      <p className="home-description">
+        Explore a história, personagens e muito mais sobre os lendários Cavaleiros de Atena.
       </p>
-      <img src="/images/saints-group.jpg" alt="Cavaleiros de Athena" className="mx-auto rounded-lg shadow-lg"/>
+      <a href="/characters" className="botao-padrao">Conheça os Personagens</a>
     </section>
-  )
-}
+  );
+};
+
+export default HomePage;

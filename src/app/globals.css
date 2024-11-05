@@ -2,29 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* src/app/globals.css */
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
+/* Estilo global para garantir que a página respeite a barra de navegação e o rodapé */
 html, body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Roboto', sans-serif;
-  background-color: #1a1a1a;
-  color: #fff;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    background: url('/background/LOS.jpg') center center fixed no-repeat;
+    background-size: cover;
+    color: #f8d549;
+    font-family: 'Arial', sans-serif;
 }
 
-a {
-  text-decoration: none;
-  color: #ddd;
+body {
+    flex: 1;
+    padding-top: 7rem; /* Ajuste o valor conforme a altura da navbar */
 }
 
-a:hover {
-  color: #fff;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 16px;
+.main-content {
+    flex: 1;
+    width: 100%;
 }
