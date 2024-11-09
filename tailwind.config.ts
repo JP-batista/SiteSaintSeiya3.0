@@ -9,15 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'saint-blue': '#1E40AF',
-        'saint-gold': '#FFD700',
-      },
-      fontFamily: {
-        'saint': ['"Roboto"', 'sans-serif'],
+        background: "var(--background)",
+        foreground: "var(--foreground)",
       },
     },
   },
-  
   plugins: [],
 };
 export default config;
