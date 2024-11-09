@@ -17,8 +17,6 @@ type Character = {
   imgSrc: string;
 };
 
-type Achievement = "First Win" | "Win in 10 Attempts" | "Win in 7 Attempts" | "Win in 5 Attempts" | "Win in 3 Attempts" | "Win in 1 Attempt";
-
 export default function GamePage() {
   // Função auxiliar para salvar no localStorage
   const saveToLocalStorage = (key: string, value: any) => {
@@ -42,13 +40,12 @@ export default function GamePage() {
       characters[Math.floor(Math.random() * characters.length)]
     )
   );
-  
   const [input, setInput] = useState<string>("");
   const [attempts, setAttempts] = useState<any[]>(() =>
     loadFromLocalStorage("attempts", [])
   );
   const [won, setWon] = useState<boolean>(false);
-  const [showAnswer, setShowAnswer] = useState<boolean>(false);
+  const [showAnswer, setShowAnswer] = useState<boolean>(false); // Estado para controlar desistência
   const [suggestions, setSuggestions] = useState<Character[]>([]);
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
@@ -56,11 +53,6 @@ export default function GamePage() {
   const parseHeight = (height: string) =>
     parseFloat(height.replace(",", ".").replace(" m", ""));
 
-  // Adicionar estado de conquistas
-  const [achievements, setAchievements] = useState<Achievement[]>(() =>
-    loadFromLocalStorage("achievements", [])
-  );
-  
   // Função para comparar números como idade e peso
   const compareNumber = (value: number, target: number) => {
     if (value === target) return "green"; // Valor igual
@@ -80,36 +72,8 @@ export default function GamePage() {
   useEffect(() => {
     saveToLocalStorage("selectedCharacter", selectedCharacter);
     saveToLocalStorage("attempts", attempts);
-    saveToLocalStorage("achievements", achievements); // Salvar conquistas
-  }, [selectedCharacter, attempts, achievements]);
+  }, [selectedCharacter, attempts]);
 
-  const checkAchievements = () => {
-    const newAchievements: Achievement[] = [];
-
-    if (!achievements.includes("First Win")) {
-      newAchievements.push("First Win");
-    }
-    if (attempts.length <= 10 && !achievements.includes("Win in 10 Attempts")) {
-      newAchievements.push("Win in 10 Attempts");
-    }
-    if (attempts.length <= 7 && !achievements.includes("Win in 7 Attempts")) {
-      newAchievements.push("Win in 7 Attempts");
-    }
-    if (attempts.length <= 5 && !achievements.includes("Win in 5 Attempts")) {
-      newAchievements.push("Win in 5 Attempts");
-    }
-    if (attempts.length <= 3 && !achievements.includes("Win in 3 Attempts")) {
-      newAchievements.push("Win in 3 Attempts");
-    }
-    if (attempts.length === 1 && !achievements.includes("Win in 1 Attempt")) {
-      newAchievements.push("Win in 1 Attempt");
-    }
-
-    if (newAchievements.length > 0) {
-      setAchievements([...achievements, ...newAchievements]);
-    }
-  };
-  
   // Função que verifica se o personagem já foi tentado
   const isAlreadyTried = (nome: string) => {
     return attempts.some((attempt) => attempt.nome.toLowerCase() === nome.toLowerCase());
@@ -159,12 +123,9 @@ export default function GamePage() {
     };
     
 
-    if (correct) {
-      setWon(true);
-      checkAchievements(); // Checar conquistas ao vencer
-    }
+    if (correct) setWon(true);
 
-    setAttempts([comparison, ...attempts]);
+    setAttempts([comparison, ...attempts]); // Adicionando o novo personagem no início da lista
     setInput("");
     setSuggestions([]);
     setShowDropdown(false);
@@ -230,6 +191,7 @@ export default function GamePage() {
       <h1 className="text-5xl font-bold mb-8 text-yellow-400">
         Adivinhe o Cavaleiro!
       </h1>
+
       {!won ? (
         <>
           <form
