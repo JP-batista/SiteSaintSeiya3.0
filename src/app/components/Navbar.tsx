@@ -15,22 +15,15 @@ export default function Navbar({ onThemeChange }: { onThemeChange: (theme: strin
   useEffect(() => {
     const savedUsername = localStorage.getItem('username');
     const savedSelectedCavaleiro = localStorage.getItem('selectedCavaleiro');
-    const savedTheme = localStorage.getItem('currentTheme');
 
     setUsername(savedUsername || 'Seiya de Pégaso');
     setSelectedCavaleiro(savedSelectedCavaleiro ? cavaleiros.find(c => c.name === savedSelectedCavaleiro) || cavaleiros[0] : cavaleiros[0]);
-    setCurrentTheme(savedTheme || 'santuary');
-    onThemeChange(savedTheme || 'santuary'); // Aplica o tema ao carregar a página
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('currentTheme', currentTheme); // Salva o tema atual no localStorage
-  }, [currentTheme]);
 
   // Função para selecionar o tema e fechar o dropdown ao clicar
   const selectTheme = (theme: string) => {
     setCurrentTheme(theme);
-    onThemeChange(theme); // Chama a função para aplicar o tema
+    onThemeChange(theme);
     setThemeDropdownOpen(false); // Fecha o dropdown ao selecionar
   };
 
@@ -67,14 +60,7 @@ export default function Navbar({ onThemeChange }: { onThemeChange: (theme: strin
   };
 
   return (
-    <header
-      className="bg-gray-900 bg-opacity-75 shadow-lg backdrop-blur-md fixed top-0 left-0 w-full z-50"
-      style={{
-        backgroundImage: `url(/images/${currentTheme}.jpg)`, // Define o fundo com o tema atual
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
+    <header className="bg-gray-900 bg-opacity-75 shadow-lg backdrop-blur-md fixed top-0 left-0 w-full z-50">
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         <div className="flex items-center">
           <Link href="/" className="flex items-center" aria-label="Logo Os Cavaleiros do Zodíaco">
