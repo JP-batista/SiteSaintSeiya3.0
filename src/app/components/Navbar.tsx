@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import cavaleiros, { Cavaleiro } from '../data/skins';
 
@@ -9,10 +9,17 @@ export default function Navbar({ onThemeChange }: { onThemeChange: (theme: strin
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isThemeDropdownOpen, setThemeDropdownOpen] = useState(false);
   const dropdownTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const [username, setUsername] = useState(() => localStorage.getItem('username') || 'Seiya de Pégaso');
-  const [selectedCavaleiro, setSelectedCavaleiro] = useState(
-    () => cavaleiros.find(c => c.name === localStorage.getItem('selectedCavaleiro')) || cavaleiros[0]
-  );
+  const [username, setUsername] = useState('Seiya de Pégaso');
+  const [selectedCavaleiro, setSelectedCavaleiro] = useState(cavaleiros[0]);
+
+  useEffect(() => {
+    const savedUsername = localStorage.getItem('username');
+    const savedSelectedCavaleiro = localStorage.getItem('selectedCavaleiro');
+
+    setUsername(savedUsername || 'Seiya de Pégaso');
+    setSelectedCavaleiro(savedSelectedCavaleiro ? cavaleiros.find(c => c.name === savedSelectedCavaleiro) || cavaleiros[0] : cavaleiros[0]);
+  }, []);
+
   // Função para selecionar o tema e fechar o dropdown ao clicar
   const selectTheme = (theme: string) => {
     setCurrentTheme(theme);
